@@ -1,0 +1,3074 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cepty Consultant REST API (M2 - TAL)</title>
+    
+<link href="./css/combined.css" rel="stylesheet">
+<script type="text/javascript" src="./js/combined.js"></script>
+     
+</head>
+<body>
+    <div class="jumbotron">
+    <div class="container">
+        <h1>Cepty Consultant REST API (M2 - TAL)</h1><p>
+        This API provide some features to manipulate contributions of Cepty Consultant
+        </p></div>
+</div><div id="help-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Keyboard Shortcuts</h3>
+            </div>
+            <div class="modal-body">
+                <div class="help_row">
+                    <h4>Site wide shortcuts</h4>
+                    <dl class="keyboard-mappings">
+                        <dt>?</dt>
+                        <dd>Bring up this help dialog</dd>
+                    </dl>
+                    <dl class="keyboard-mappings">
+                        <dt>esc</dt>
+                        <dd>Hide this help dialog</dd>
+                    </dl>
+                    <dl class="keyboard-mappings">
+                        <dt>/</dt>
+                        <dd>Focus search bar</dd>
+                    </dl>
+                </div>
+                <div class="help_row">
+                    <h4>Navigation</h4>
+                    <dl class="keyboard-mappings">
+                        <dt>j <em>or</em> n</dt>
+                        <dd>Move to next method or type</dd>
+                    </dl>
+                    <dl class="keyboard-mappings">
+                        <dt>k <em>or</em> p</dt>
+                        <dd>Move to previous method or type</dd>
+                    </dl>
+            
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div><div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="doc-sidebar"><input type="search" placeholder="search" class="col-md-12 form-control">
+<div class="scroll-spyable">
+    <ul class="nav nav-list doc-sidenav">
+        <li class="nav-header"><h5>Methods</h5></li><li class="nav-header" data-group="Client"><a href="javascript:navigateTo({category: 'Client'}, ['category', 'method', 'type'])" data-target="#c-Client"><h6>Client</h6></a></li>
+        <li data-group="Client"  data-item="Update a client"><a href="javascript:navigateTo({category: 'Client', method: 'PutClient'}, ['category', 'method'])" data-target="#m-PutClient"><span>Update a client</span></a></li>
+        <li class="separator"></li><li class="nav-header" data-group="Clients"><a href="javascript:navigateTo({category: 'Clients'}, ['category', 'method', 'type'])" data-target="#c-Clients"><h6>Clients</h6></a></li>
+        <li data-group="Clients"  data-item="Delete a client"><a href="javascript:navigateTo({category: 'Clients', method: 'DeleteClient'}, ['category', 'method'])" data-target="#m-DeleteClient"><span>Delete a client</span></a></li>
+        <li data-group="Clients"  data-item="Show all clients"><a href="javascript:navigateTo({category: 'Clients', method: 'GetAllClients'}, ['category', 'method'])" data-target="#m-GetAllClients"><span>Show all clients</span></a></li>
+        <li data-group="Clients"  data-item="Show clients by id"><a href="javascript:navigateTo({category: 'Clients', method: 'GetClientsById'}, ['category', 'method'])" data-target="#m-GetClientsById"><span>Show clients by id</span></a></li>
+        <li data-group="Clients"  data-item="Show clients by name"><a href="javascript:navigateTo({category: 'Clients', method: 'GetClientsByName'}, ['category', 'method'])" data-target="#m-GetClientsByName"><span>Show clients by name</span></a></li>
+        <li class="separator"></li><li class="nav-header" data-group="Contributions"><a href="javascript:navigateTo({category: 'Contributions'}, ['category', 'method', 'type'])" data-target="#c-Contributions"><h6>Contributions</h6></a></li>
+        <li data-group="Contributions"  data-item="Create a contribution"><a href="javascript:navigateTo({category: 'Contributions', method: 'PostContribution'}, ['category', 'method'])" data-target="#m-PostContribution"><span>Create a contribution</span></a></li>
+        <li data-group="Contributions"  data-item="Delete a contribution"><a href="javascript:navigateTo({category: 'Contributions', method: 'DeleteContribution'}, ['category', 'method'])" data-target="#m-DeleteContribution"><span>Delete a contribution</span></a></li>
+        <li data-group="Contributions"  data-item="Show a contribution by id"><a href="javascript:navigateTo({category: 'Contributions', method: 'GetContributionById'}, ['category', 'method'])" data-target="#m-GetContributionById"><span>Show a contribution by id</span></a></li>
+        <li data-group="Contributions"  data-item="Show all contributions"><a href="javascript:navigateTo({category: 'Contributions', method: 'GetAllContributions'}, ['category', 'method'])" data-target="#m-GetAllContributions"><span>Show all contributions</span></a></li>
+        <li data-group="Contributions"  data-item="Show all contributions by authors"><a href="javascript:navigateTo({category: 'Contributions', method: 'GetContributionsByName'}, ['category', 'method'])" data-target="#m-GetContributionsByName"><span>Show all contributions by authors</span></a></li>
+        <li data-group="Contributions"  data-item="Update a contribution"><a href="javascript:navigateTo({category: 'Contributions', method: 'PutContribution'}, ['category', 'method'])" data-target="#m-PutContribution"><span>Update a contribution</span></a></li>
+        <li class="separator"></li><li class="nav-header" data-group="Login"><a href="javascript:navigateTo({category: 'Login'}, ['category', 'method', 'type'])" data-target="#c-Login"><h6>Login</h6></a></li>
+        <li data-group="Login"  data-item="Create a client"><a href="javascript:navigateTo({category: 'Login', method: 'PostClient'}, ['category', 'method'])" data-target="#m-PostClient"><span>Create a client</span></a></li>
+        <li data-group="Login"  data-item="Create client password"><a href="javascript:navigateTo({category: 'Login', method: 'PostLogin'}, ['category', 'method'])" data-target="#m-PostLogin"><span>Create client password</span></a></li>
+        <li data-group="Login"  data-item="Login and get token"><a href="javascript:navigateTo({category: 'Login', method: 'GetLogin'}, ['category', 'method'])" data-target="#m-GetLogin"><span>Login and get token</span></a></li>
+    </ul>
+    <ul class="nav nav-list doc-sidenav">
+        <li class="nav-header"><h5>Types</h5></li><li class="nav-header" data-group="Clients"><a href="javascript:navigateTo({category: 'Clients'}, ['category', 'method', 'type'])" data-target="#c-Clients"><h6>Clients</h6></a></li>
+        <li data-group="Clients" data-item="mimeType"><a href="javascript:navigateTo({category: 'Clients', type: 'mimeType'}, ['category', 'method'])" data-target="#t-mimeType"><span>mimeType</span></a></li>
+        <li class="separator"></li>
+        <li data-group="None" data-item="Client"><a href="javascript:navigateTo({category: 'None', type: 'Client'}, ['category', 'method'])" data-target="#t-Client"><span>Client</span></a></li>
+        <li data-group="None" data-item="Contribution"><a href="javascript:navigateTo({category: 'None', type: 'Contribution'}, ['category', 'method'])" data-target="#t-Contribution"><span>Contribution</span></a></li>
+        <li data-group="None" data-item="LoginPassword"><a href="javascript:navigateTo({category: 'None', type: 'LoginPassword'}, ['category', 'method'])" data-target="#t-LoginPassword"><span>LoginPassword</span></a></li>
+    </ul>
+</div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="item-head" class="item">
+                <h4></h4>
+                <div class="diff-header"></div>
+                <div class="stack">
+                    <h5>hello</h5>
+                </div>
+            </div>
+            <div class="page-header">
+                <h2>Methods</h2>
+            </div>
+            <ul class="list-unstyled">
+    <li class="category" id="c-Client"><h3>Client</h3>
+        <ul class="list-unstyled">
+            <li class="method item" id="m-PutClient" data-method="PUT">
+                <h4>Update a client</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Update a client of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/clients/client_id</span></code>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Successful update client</span></td>
+            <td><span class="com">Successful update this client</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client id not found</span></td>
+            <td><span class="com">Client id do not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">PUT</span> <span class="hur">/clients/client_id</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>    <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>    <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>    <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span><span class="pun">,
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span>
+    <span class="pun">]</span><span class="pun">,
+</span>    <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>    <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="category" id="c-Clients"><h3>Clients</h3>
+        <div class="description">Manage clients of all contributions</div>
+        <ul class="list-unstyled">
+            <li class="method item" id="m-DeleteClient" data-method="DELETE">
+                <h4>Delete a client</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Delete a client of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/clients/client_id</span></code>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Successful delete client</span></td>
+            <td><span class="com">Successful delete this client</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client id not found</span></td>
+            <td><span class="com">Client id does not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">DELETE</span> <span class="hur">/clients/client_id</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>    <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>    <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>    <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span><span class="pun">,
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span>
+    <span class="pun">]</span><span class="pun">,
+</span>    <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>    <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetAllClients" data-method="GET">
+                <h4>Show all clients</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">List clients of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/clients?limit={limit}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">limit</span></td>
+            <td><span class="typ">integer<td><span class="lit">Optional</span></td>
+            <td><span class="com">Limit range of clients to return</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>    <span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="pun">]</span><span class="pun">,</span></td>
+        <td></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Client found</span></td>
+            <td><span class="com">Clients found in database</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client not found (partial content)</span></td>
+            <td><span class="com">Client do not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/clients?limit=150</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[
+</span>    <span class="pun">{
+</span>      <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>      <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>      <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>      <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span><span class="pun">,
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span>
+      <span class="pun">]</span><span class="pun">,
+</span>      <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>      <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+    <span class="pun">}</span><span class="pun">,
+</span>    <span class="pun">{
+</span>      <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>      <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>      <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>      <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span><span class="pun">,
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span>
+      <span class="pun">]</span><span class="pun">,
+</span>      <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>      <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+    <span class="pun">}</span>
+  <span class="pun">]</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetClientsById" data-method="GET">
+                <h4>Show clients by id</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">List specific client's id of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/clients/{client_id}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">client_id</span></td>
+            <td><span class="typ">string<td><span class="lit">Optional</span></td>
+            <td><span class="com">client id</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Client found</span></td>
+            <td><span class="com">Clients found in database</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client not found (partial content)</span></td>
+            <td><span class="com">Client do not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/clients/my_client_id</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>    <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>    <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>    <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span><span class="pun">,
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span>
+    <span class="pun">]</span><span class="pun">,
+</span>    <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>    <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetClientsByName" data-method="GET">
+                <h4>Show clients by name</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">List specific client's names of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/clients?limit={limit}&sort_name={sort}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">limit</span></td>
+            <td><span class="typ">integer<td><span class="lit">Optional</span></td>
+            <td><span class="com">Limit range of clients to return</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Query String Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">sort_name</span></td>
+            <td><span class="typ">string<td><span class="lit">Optional</span></td>
+            <td><span class="com">Sort clients by its name</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>    <span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="pun">]</span><span class="pun">,</span></td>
+        <td></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Client found</span></td>
+            <td><span class="com">Clients found in database</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client not found (partial content)</span></td>
+            <td><span class="com">Client do not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/clients?limit=150&sort_name={sort}sort_name=ASC</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[
+</span>    <span class="pun">{
+</span>      <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>      <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>      <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>      <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span><span class="pun">,
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span>
+      <span class="pun">]</span><span class="pun">,
+</span>      <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>      <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+    <span class="pun">}</span><span class="pun">,
+</span>    <span class="pun">{
+</span>      <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>      <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>      <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>      <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span><span class="pun">,
+</span>        <span class="pun">{
+</span>
+        <span class="pun">}</span>
+      <span class="pun">]</span><span class="pun">,
+</span>      <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>      <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+    <span class="pun">}</span>
+  <span class="pun">]</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="category" id="c-Contributions"><h3>Contributions</h3>
+        <div class="description">Manage all contributions</div>
+        <ul class="list-unstyled">
+            <li class="method item" id="m-PostContribution" data-method="POST">
+                <h4>Create a contribution</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Create a new contribution of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/contributions</span></code>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span></td>
+        <td class="com"></td>
+    </tr>
+        </tbody>
+    </table></div>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">201</span></td>
+            <td><span class="str">Contribution created</span></td>
+            <td><span class="com">Successful create new contribution</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">400</span></td>
+            <td><span class="str">Badrequest action !</span></td>
+            <td><span class="com">Your request body same not correct</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">409</span></td>
+            <td><span class="str">Contribution name already exist !</span></td>
+            <td><span class="com">Contribution name already exist in our database</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">POST</span> <span class="hur">/contributions</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+<span class="pun">{
+</span>  <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>  <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>  <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>  <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>  <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>  <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>  <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>  <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>  <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>  <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>  <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+<span class="pun">}</span></div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>    <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>    <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>    <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>    <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>    <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>    <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>    <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>    <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>    <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-DeleteContribution" data-method="DELETE">
+                <h4>Delete a contribution</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Delete a contribution of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/contributions/contrib_id</span></code>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Successful delete contribution</span></td>
+            <td><span class="com">Successful delete this contribution</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Contribution id not found</span></td>
+            <td><span class="com">Contribution id does not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">DELETE</span> <span class="hur">/contributions/contrib_id</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>    <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>    <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>    <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>    <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>    <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>    <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>    <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>    <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>    <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetContributionById" data-method="GET">
+                <h4>Show a contribution by id</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">List specific contribution's id of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/contributions/{contrib_id}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">contrib_id</span></td>
+            <td><span class="typ">string<td><span class="lit">Optional</span></td>
+            <td><span class="com">Contribution's id</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Contributions found</span></td>
+            <td><span class="com">Contributions found in database</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Contribution not found</span></td>
+            <td><span class="com">Contribution does not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/contributions/my_contrib_id</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>    <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>    <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>    <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>    <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>    <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>    <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>    <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>    <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>    <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetAllContributions" data-method="GET">
+                <h4>Show all contributions</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">List all contributions of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/contributions?limit={limit}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">limit</span></td>
+            <td><span class="typ">integer<td><span class="lit">Optional</span></td>
+            <td><span class="com">Limit range of contributions to return</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>    <span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="pun">]</span><span class="pun">,</span></td>
+        <td></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Contributions found</span></td>
+            <td><span class="com">Contributions found in database</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Contribution not found</span></td>
+            <td><span class="com">Contribution does not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/contributions?limit=150</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[
+</span>    <span class="pun">{
+</span>      <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>      <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>      <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>      <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>      <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>      <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>      <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>      <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>      <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>      <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+    <span class="pun">}</span><span class="pun">,
+</span>    <span class="pun">{
+</span>      <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>      <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>      <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>      <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>      <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>      <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>      <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>      <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>      <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>      <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+    <span class="pun">}</span>
+  <span class="pun">]</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetContributionsByName" data-method="GET">
+                <h4>Show all contributions by authors</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">List specific contribution's authors of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/contributions?limit={limit}&sort_name={sort}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">limit</span></td>
+            <td><span class="typ">integer<td><span class="lit">Optional</span></td>
+            <td><span class="com">Limit range of contributions to return</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Query String Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">sort_name</span></td>
+            <td><span class="typ">string<td><span class="lit">Optional</span></td>
+            <td><span class="com">Sort contributions by its name</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>    <span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="pun">]</span><span class="pun">,</span></td>
+        <td></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Contributions found</span></td>
+            <td><span class="com">Contributions found in database</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Contribution not found</span></td>
+            <td><span class="com">Contribution does not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/contributions?limit=150&sort_name={sort}sort_name=ASC</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">[
+</span>    <span class="pun">{
+</span>      <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>      <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>      <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>      <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>      <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>      <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>      <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>      <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>      <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>      <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+    <span class="pun">}</span><span class="pun">,
+</span>    <span class="pun">{
+</span>      <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>      <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>      <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>      <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>      <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>      <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>      <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>      <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>      <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>      <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>      <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>      <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+    <span class="pun">}</span>
+  <span class="pun">]</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-PutContribution" data-method="PUT">
+                <h4>Update a contribution</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Update a contribution of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/contributions/contrib_id</span></code>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Contribution'}, ['category', 'method'])">Contribution</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Successful update contribution</span></td>
+            <td><span class="com">Successful update this contributions</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Contribution id not found</span></td>
+            <td><span class="com">Contribution id do not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">PUT</span> <span class="hur">/contributions/contrib_id</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>    <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>    <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>    <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>    <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>    <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>    <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>    <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>    <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>    <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="category" id="c-Login"><h3>Login</h3>
+        <div class="description">Manage login and access token</div>
+        <ul class="list-unstyled">
+            <li class="method item" id="m-PostClient" data-method="POST">
+                <h4>Create a client</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Create a new client of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/client</span></code>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">X-Access-Token</span></td>
+            <td><span class="typ">string</span></td>
+            <td><span class="com">Authentication token</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span></td>
+        <td class="com"></td>
+    </tr>
+        </tbody>
+    </table></div>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">201</span></td>
+            <td><span class="str">Client created</span></td>
+            <td><span class="com">Successful create new client</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">400</span></td>
+            <td><span class="str">Badrequest action !</span></td>
+            <td><span class="com">Your request body same not correct</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">409</span></td>
+            <td><span class="str">Client name already exist !</span></td>
+            <td><span class="com">Client name already exist in our database</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">POST</span> <span class="hur">/client</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">X-Access-Token</span><span class="pun">: </span><span class="hva">my_X-Access-Token</span>
+
+<span class="pun">{
+</span>  <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>  <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>  <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>  <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>  <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>  <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>    <span class="pun">{
+</span>
+    <span class="pun">}</span><span class="pun">,
+</span>    <span class="pun">{
+</span>
+    <span class="pun">}</span>
+  <span class="pun">]</span><span class="pun">,
+</span>  <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>  <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+<span class="pun">}</span></div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>    <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>    <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>    <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span><span class="pun">,
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span>
+    <span class="pun">]</span><span class="pun">,
+</span>    <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>    <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-PostLogin" data-method="POST">
+                <h4>Create client password</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Create new password for a client of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/login?client_name={client_name}</span></code>
+    <h6>URI Parameters: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="70px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Optional</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">client_name</span></td>
+            <td><span class="typ">string<td><span class="lit">Optional</span></td>
+            <td><span class="com">client name to set a password</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="typ"><a href="javascript:navigateTo({type: 'LoginPassword'}, ['category', 'method'])">LoginPassword</a></span></td>
+        <td class="com"></td>
+    </tr>
+        </tbody>
+    </table></div>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">201</span></td>
+            <td><span class="str">Password created</span></td>
+            <td><span class="com">Successful create new password for this client</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">400</span></td>
+            <td><span class="str">Badrequest action !</span></td>
+            <td><span class="com">Your request body same not correct</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client name not found (partial content)</span></td>
+            <td><span class="com">Client do not exist</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">409</span></td>
+            <td><span class="str">Password already defined !</span></td>
+            <td><span class="com">Password already set for this client</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">POST</span> <span class="hur">/login?client_name=150</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+
+<span class="pun">{
+</span>  <span class="str">"password"</span><span class="pun">: </span><span class="str">"my_password"</span>
+<span class="pun">}</span></div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>    <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>    <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>    <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span><span class="pun">,
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span>
+    <span class="pun">]</span><span class="pun">,
+</span>    <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>    <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="method item" id="m-GetLogin" data-method="GET">
+                <h4>Login and get token</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+<h5 class="title"></h5>
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Login as client of ceptyconsultant</div></div><div class="request stack">
+    <h5><i class="i-request"></i> Request: </h5>
+    <h6>Resource: </h6>
+
+    <code  class="diff_version" data-version="v0.1"><span class="hur">http://ceptyconsultants.localhost/v0.1/login</span></code>
+    <h6>Headers: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col></col>
+            <col width="160px"></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Parameter</span></th>
+            <th><span
+            >Type</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version generic" data-version="v0.1">
+            <td><span class="str">Accept</span></td>
+            <td><span class="typ">
+                    <a href="javascript:navigateTo({type: 'mimeType'}, ['category', 'method'])">mimeType</a></span></td>
+            <td><span class="com">List of accepted MimeTypes</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="str">Basic-Auth</span></td>
+            <td><span class="typ">object</span></td>
+            <td><span class="com">Client informations login</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="response stack">
+    <h5><i class="i-response"></i> Response: </h5>
+    <h6>Body: </h6>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"data"</span><span class="pun">: </span><span class="typ"><a href="javascript:navigateTo({type: 'Client'}, ['category', 'method'])">Client</a></span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"message"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"status"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"time_server"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"total"</span><span class="pun">: </span><span class="typ">integer</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+    <h6>Codes: </h6><table class="table table-bordered table-hover table-condensed">
+        <colgroup>
+            <col width="50px"></col>
+            <col></col>
+            <col width="50%"></col>
+        </colgroup>
+        <thead>
+            <tr>
+            <th><span
+            >Code</span></th>
+            <th><span
+            >Message</span></th>
+            <th><span
+            >Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">200</span></td>
+            <td><span class="str">Client found</span></td>
+            <td><span class="com">Successful login as client</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">401</span></td>
+            <td><span class="str">Unauthorized action !</span></td>
+            <td><span class="com">Token expired or set token first</span></td>
+        </tr>
+        <tr class="diff_version " data-version="v0.1">
+            <td><span class="lit">404</span></td>
+            <td><span class="str">Client not found (partial content)</span></td>
+            <td><span class="com">Client do not exist</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Sample: </h5>
+<h6>Request: </h6>
+<div class="code"><span class="hme">GET</span> <span class="hur">/login</span> <span class="hpr">HTTP/1.1</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+<span class="hat">Accept</span><span class="pun">: </span><span class="hva">application/json</span>
+<span class="hat">Basic-Auth</span><span class="pun">: </span><span class="hva">my_Basic-Auth</span>
+
+</div>
+        <h6>Response: </h6>
+        <div class="code"><span class="hpr">HTTP/1.1</span> <span class="lit">200</span> <span class="str">OK</span>
+<span class="hat">Content-Type</span><span class="pun">: </span><span class="hva">application/json; charset=utf-8</span>
+
+<span class="pun">{
+</span>  <span class="str">"data"</span><span class="pun">: </span><span class="pun">{
+</span>    <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>    <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>    <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>    <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>    <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>    <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span><span class="pun">,
+</span>      <span class="pun">{
+</span>
+      <span class="pun">}</span>
+    <span class="pun">]</span><span class="pun">,
+</span>    <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>    <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+  <span class="pun">}</span><span class="pun">,
+</span>  <span class="str">"message"</span><span class="pun">: </span><span class="str">"my_message"</span><span class="pun">,
+</span>  <span class="str">"status"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"time_server"</span><span class="pun">: </span><span class="str">"my_time_server"</span><span class="pun">,
+</span>  <span class="str">"total"</span><span class="pun">: </span><span class="lit">42</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+        </ul>
+    </li>
+            </ul>
+            <div class="page-header">
+                <h2>Types</h2>
+            </div>
+            <ul class="list-unstyled">
+    <li class="category" id="c-Clients"><h3>Clients</h3>
+        <div class="description">Manage clients of all contributions</div>
+        <ul class="list-unstyled">
+            <li class="type item" id="t-mimeType">
+                <h4>mimeType</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">A mime type</div></div><div class="configuration stack">
+    <h5><i class="i-presentation"></i> Presentation: </h5>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="typ">string</span></td>
+        <td class="com"></td>
+    </tr>
+        </tbody>
+    </table></div>
+
+
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Formats: </h5>
+<h6>Pretty Print: </h6>
+<code><span class="str">type/sous-type</span></code>
+<h6>Sample: </h6>
+<div class="code"><span class="str">"application/json"</span></div></div></div>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="category" id="c-None">
+        <ul class="list-unstyled">
+            <li class="type item" id="t-Client">
+                <h4>Client</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">A global informations about a client</div></div><div class="configuration stack">
+    <h5><i class="i-presentation"></i> Presentation: </h5>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"actif"</span><span class="pun">: </span><span class="typ">boolean</span><span class="pun">,</span></td>
+        <td class="com">Client actualy works</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"actionnaire"</span><span class="pun">: </span><span class="typ">boolean</span><span class="pun">,</span></td>
+        <td class="com">Client is an partner of the compagny ?</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"anciennete"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com">anciennete of the client</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"conge"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com">Some publication sources related to dictionary</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"fonction"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Function of the client</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"id"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Identified of client</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Last update applied to the client</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[</span></td>
+        <td class="com">List of cities where client work</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>    <span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>    <span class="pun">}</span></td>
+        <td></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="pun">]</span><span class="pun">,</span></td>
+        <td></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"nom"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Name of the client</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"prenom"</span><span class="pun">: </span><span class="typ">string</span></td>
+        <td class="com">Subname of the client</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+
+
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Formats: </h5>
+<h6>Sample: </h6>
+<div class="code"><span class="pun">{
+</span>  <span class="str">"actif"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>  <span class="str">"actionnaire"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>  <span class="str">"anciennete"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"conge"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"fonction"</span><span class="pun">: </span><span class="str">"my_fonction"</span><span class="pun">,
+</span>  <span class="str">"id"</span><span class="pun">: </span><span class="str">"my_id"</span><span class="pun">,
+</span>  <span class="str">"mise_a_jour"</span><span class="pun">: </span><span class="str">"my_mise_a_jour"</span><span class="pun">,
+</span>  <span class="str">"missions"</span><span class="pun">: </span><span class="pun">[
+</span>    <span class="pun">{
+</span>
+    <span class="pun">}</span><span class="pun">,
+</span>    <span class="pun">{
+</span>
+    <span class="pun">}</span>
+  <span class="pun">]</span><span class="pun">,
+</span>  <span class="str">"nom"</span><span class="pun">: </span><span class="str">"my_nom"</span><span class="pun">,
+</span>  <span class="str">"prenom"</span><span class="pun">: </span><span class="str">"my_prenom"</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="type item" id="t-Contribution">
+                <h4>Contribution</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">A global informations about a contribution</div></div><div class="configuration stack">
+    <h5><i class="i-presentation"></i> Presentation: </h5>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"article_id"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Article id of the contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"contrib_data"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Data of the contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"contrib_name"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">name of the contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"contrib_path"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Path of data contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"contrib_type"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Type of current contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"dico_id"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Id of contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"last_update"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Last update of contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"ntealan"</span><span class="pun">: </span><span class="typ">boolean</span><span class="pun">,</span></td>
+        <td class="com">It is ntealan member ?</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"public_id"</span><span class="pun">: </span><span class="typ">integer</span><span class="pun">,</span></td>
+        <td class="com">Contribution identifier</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"user_id"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">id of contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"user_name"</span><span class="pun">: </span><span class="typ">string</span><span class="pun">,</span></td>
+        <td class="com">Username of contribution</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"validate"</span><span class="pun">: </span><span class="typ">boolean</span></td>
+        <td class="com">contribution is valided ?</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+
+
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Formats: </h5>
+<h6>Sample: </h6>
+<div class="code"><span class="pun">{
+</span>  <span class="str">"article_id"</span><span class="pun">: </span><span class="str">"my_article_id"</span><span class="pun">,
+</span>  <span class="str">"contrib_data"</span><span class="pun">: </span><span class="str">"my_contrib_data"</span><span class="pun">,
+</span>  <span class="str">"contrib_name"</span><span class="pun">: </span><span class="str">"my_contrib_name"</span><span class="pun">,
+</span>  <span class="str">"contrib_path"</span><span class="pun">: </span><span class="str">"my_contrib_path"</span><span class="pun">,
+</span>  <span class="str">"contrib_type"</span><span class="pun">: </span><span class="str">"my_contrib_type"</span><span class="pun">,
+</span>  <span class="str">"dico_id"</span><span class="pun">: </span><span class="str">"my_dico_id"</span><span class="pun">,
+</span>  <span class="str">"last_update"</span><span class="pun">: </span><span class="str">"my_last_update"</span><span class="pun">,
+</span>  <span class="str">"ntealan"</span><span class="pun">: </span><span class="lit">true</span><span class="pun">,
+</span>  <span class="str">"public_id"</span><span class="pun">: </span><span class="lit">42</span><span class="pun">,
+</span>  <span class="str">"user_id"</span><span class="pun">: </span><span class="str">"my_user_id"</span><span class="pun">,
+</span>  <span class="str">"user_name"</span><span class="pun">: </span><span class="str">"my_user_name"</span><span class="pun">,
+</span>  <span class="str">"validate"</span><span class="pun">: </span><span class="lit">true</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+            <li class="type item" id="t-LoginPassword">
+                <h4>LoginPassword</h4><div class="nocontents">no implementation for this version</div>
+                <div class="contents">
+
+
+<div class="description stack">
+    
+    <div class="diff_version" data-version="v0.1">Object password for client</div></div><div class="configuration stack">
+    <h5><i class="i-presentation"></i> Presentation: </h5>
+    <div class="code"><table class="table-hover">
+        <colgroup>
+            <col width="50%%"></col>
+            <col width="50%%"></col>
+        </colgroup>
+        <tbody>
+
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">{</span></td>
+        <td class="com"></td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td>  <span class="str">"password"</span><span class="pun">: </span><span class="typ">string</span></td>
+        <td class="com">String representating password</td>
+    </tr>
+    <tr class="diff_version" data-version="v0.1">
+        <td><span class="pun">}</span></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table></div>
+
+
+</div><div class="stack sample"><div data-version="v0.1">
+
+<h5><i class="i-sample"></i> Formats: </h5>
+<h6>Sample: </h6>
+<div class="code"><span class="pun">{
+</span>  <span class="str">"password"</span><span class="pun">: </span><span class="str">"my_password"</span>
+<span class="pun">}</span></div></div></div>
+                </div>
+            </li>
+        </ul>
+    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="btn-group">
+        <button class="btn btn-default i-previous" type="button"></button>
+        <button class="btn btn-default i-top" type="button"></button>
+        <button class="btn btn-default i-next" type="button"></button>
+    </div>
+</footer>
+
+</body>
+</html>
