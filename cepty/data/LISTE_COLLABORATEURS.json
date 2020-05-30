@@ -1,0 +1,109 @@
+{
+    "CEPTY_002": {
+        "id": "CEPTY_002",
+        "nom": "Bergier",
+        "prenom": "Francine",
+        "fonction": "Chef service mat\u00e9riel informatique",
+        "anciennete": 20,
+        "mise_a_jour": "2011-01-05 06:20:31.527000",
+        "conge": 14,
+        "actif": true,
+        "actionnaire": false,
+        "missions": [
+            "Paris"
+        ]
+    },
+    "CEPTY_003": {
+        "id": "CEPTY_003",
+        "nom": "Taken",
+        "prenom": "Georges",
+        "fonction": "Cuisinier en chef",
+        "anciennete": 3,
+        "mise_a_jour": "2016-11-06 10:20:34.527000",
+        "conge": 5,
+        "actif": true,
+        "actionnaire": false,
+        "missions": [
+            "Londre",
+            "Tunis"
+        ]
+    },
+    "CEPTY_004": {
+        "id": "CEPTY_004",
+        "nom": "Gate",
+        "prenom": "Roland",
+        "fonction": "Chef service juridique",
+        "anciennete": 9,
+        "mise_a_jour": "2017-12-26 16:20:11.527000",
+        "conge": 10,
+        "actif": true,
+        "actionnaire": false,
+        "missions": [
+            "Berlin",
+            "Paris",
+            "NewYork"
+        ]
+    },
+    "CEPTY_005": {
+        "id": "CEPTY_005",
+        "nom": "Fokwe",
+        "prenom": "Yvette",
+        "fonction": "Directrice normalisation lexicale",
+        "anciennete": 3,
+        "mise_a_jour": "2018-02-26 13:50:41.527000",
+        "conge": 14,
+        "actif": true,
+        "actionnaire": true,
+        "missions": [
+            "NewYork",
+            "Douala"
+        ]
+    },
+    "CEPTY_001": {
+        "id": "CEPTY_001",
+        "nom": "Mikolov",
+        "prenom": "Thomas",
+        "fonction": "Directeur des representations vectorielles",
+        "anciennete": 10,
+        "mise_a_jour": "2020-04-16T21:38:00.769658",
+        "conge": 15,
+        "actif": false,
+        "actionnaire": true,
+        "missions": [
+            "Bruxelle",
+            "Paris",
+            "Pakistan"
+        ],
+        "password": "4zr5HE852"
+    },
+    "CEPTY_7652": {
+        "nom": "Elvis",
+        "prenom": "Teukeu",
+        "fonction": "Directeur des enseignements",
+        "anciennete": 3,
+        "mise_a_jour": "2020-03-06 11:55:11.827000",
+        "conge": 5,
+        "actif": false,
+        "actionnaire": true,
+        "missions": [
+            "Bruxelle",
+            "Paris"
+        ],
+        "id": "CEPTY_7652"
+    },
+    "CEPTY_340": {
+        "nom": "Gabriel",
+        "prenom": "Teukeu",
+        "fonction": "Directeur des enseignements",
+        "anciennete": 3,
+        "mise_a_jour": "2020-03-06 11:55:11.827000",
+        "conge": 5,
+        "actif": false,
+        "actionnaire": true,
+        "missions": [
+            "Bruxelle",
+            "Paris"
+        ],
+        "id": "CEPTY_340"
+    }
+}

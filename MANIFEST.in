@@ -1,0 +1,5 @@
+graft front/static
+graft front/templates
+graft cepty/data
+graft cepty/doc
+global-exclude *.pyc
