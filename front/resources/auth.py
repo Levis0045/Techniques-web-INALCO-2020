@@ -23,7 +23,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from front.models.api import login_api, create_clients
+from front.models.api import login_api, create_client
 
 # -----------------------------------------------------------------------
 
@@ -34,22 +34,17 @@ authcepty = Blueprint('authcepty', __name__, url_prefix='/authcepty')
 @authcepty.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = ''
-        error = None
+        data = dict(request.form)
+        api_resp = create_client(data)
+        code_resp = api_resp[0]
+        data_response = api_resp[1]
 
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
-        elif db  is not None:
-            error = 'User {} is already registered.'.format(username)
-
-        if error is None:
-            return redirect(url_for('authcepty.login'))
-
-        flash(error)
+        if code_resp != 201 :
+            flash("error: %s"%code_resp)
+            render_template('authcepty/register.html', api_error=True,
+                            api_message=data_response['message'])
+        else:
+            return redirect(url_for('authcepty.login'), api_error=False)
 
     return render_template('authcepty/register.html')
 
@@ -69,34 +64,34 @@ def login():
         api_resp = login_api(username, password)
         code_resp = api_resp[0]
         data_response = api_resp[1]
-        print(api_resp)
 
         if code_resp in [200, 201]:
             session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            session['user_id'] = data_response['data']['id']
+            session['token'] = data_response['token']
+            session['client'] = data_response['data']
+            g.client = data_response['data']
+            return redirect(url_for('contributions.index'))
         else:
             message_login = data_response['message']
-            print('ffffffffffffffffffffff')
-            return render_template('authcepty/login.html', login_access=False, 
-                                    message_login = message_login)
+            return render_template('authcepty/login.html', api_error=True, 
+                                    api_message=message_login)
 
     elif request.method == 'GET':
-        print('rrrrrrrrrrrrrrrrrrrrrrrrrrr')
-        return render_template('authcepty/login.html', login_access=True)
+        return render_template('authcepty/login.html', api_error=False)
     else: flash(error)
-
 
 @authcepty.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('authcepty.login'))
 
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.client is None:
+        if 'client' not in session:
+            session.clear()
             return redirect(url_for('authcepty.login'))
-        return view(g.token, **kwargs)
+        return view(session['token'], **kwargs)
 
     return wrapped_view

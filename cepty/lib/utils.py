@@ -33,8 +33,8 @@ __all__ = ['get_resource_data', 'get_client_data', 'exclude_resource_data',
 
 # Get path of data
 PARENT = Path(__file__).parent.parent
-RESOURCE_DATA = PARENT/'data'/'DONNEES_CLIENT.json'
-USER_DATA = PARENT /'data'/'LISTE_COLLABORATEURS.json'
+RESOURCE_DATA = PARENT / 'data' / 'DONNEES_CLIENT.json'
+USER_DATA = PARENT / 'data' / 'LISTE_COLLABORATEURS.json'
 SHELVE_DATA = str(PARENT / 'data' / 'ceptydatabase.sheve.db')
 
 # ------------------------------------------------------------------
@@ -105,7 +105,6 @@ def get_client_data(database, id_data):
     """ Get client data by id """
     crt_data = [{k:v} for k, v in database.items() if k == id_data]
     if len(crt_data) == 0: raise Exception("Not client found with this id")
-    print('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
     crt_data = crt_data[0]
     return crt_data
 

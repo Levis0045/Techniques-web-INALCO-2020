@@ -1,17 +1,17 @@
 configuration:
-  title: Cepty Consultant REST API (M2 - TAL)
-  description: This API provide some features to manipulate contributions of Cepty Consultant
-  uri: http://ceptyconsultants.localhost/v0.1
+  title: Cepty Consultants REST API (M2 - TAL - INALCO)
+  description: This API provide some features to manipulate contributions of Cepty Consultants compagny
+  uri: http://127.0.0.1:5000/api/v0.2
 categories:
   Clients:
     description: Manage clients of all contributions
   Contributions:
-    description: Manage all contributions
+    description: Manage all contributions of clients
   Login:
     description: Manage login and access token    
 versions:
   v0.1:
-    status: current
+    status: deprecated
     major: 0
     minor: 1
     methods:
@@ -149,7 +149,7 @@ versions:
       GetClientsByName:
         label: Show clients by name
         description: List specific client's names of ceptyconsultant
-        uri: /clients?limit={limit}&sort_name={sort}
+        uri: /clients?limit={limit}&sort_name={sort_name}
         category: Clients
         request_parameters:
           limit:
@@ -289,7 +289,7 @@ versions:
         method: PUT
         description: Update a client of ceptyconsultant
         uri: /clients/client_id
-        category: Client
+        category: Clients
         request_headers:
           Accept:
             type: mimeType
@@ -402,7 +402,7 @@ versions:
       GetContributionsByName:
         label: Show all contributions by authors
         description: List specific contribution's authors of ceptyconsultant
-        uri: /contributions?limit={limit}&sort_name={sort}
+        uri: /contributions?limit={limit}&sort_name={sort_name}
         category: Contributions
         request_parameters:
           limit:
@@ -712,4 +712,852 @@ versions:
               type: string
               description: String representating password
             
-  
+  v0.2:
+    status: current
+    major: 0
+    minor: 2
+    methods:
+      GetLogin:
+        label: Login and get token
+        description: Login as client of ceptyconsultant
+        uri: /login
+        category: Login
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          Basic-Auth:
+            type: object
+            description: Client informations login            
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Client found
+            description: Successful login as client
+          - code: 404
+            message: Client not found (partial content)
+            description: Client do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first 
+
+      PostLogin:
+        label: Create client password
+        method: POST
+        description: Create new password for a client of ceptyconsultant
+        uri: /login?client_name={client_name}
+        category: Login
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+        request_parameters:
+          client_name:
+            type: string
+            optional: true
+            description: client name to set a password
+            sample: 150
+        request_body:
+          type: LoginPassword
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 201
+            message: Password created 
+            description: Successful create new password for this client
+          - code: 400
+            message: Badrequest action ! 
+            description: Your request body same not correct
+          - code: 404
+            message: Client name not found (partial content)
+            description: Client do not exist
+          - code: 409
+            message: Password already defined ! 
+            description: Password already set for this client 
+
+      GetAllClients:
+        label: Show all clients
+        description: List clients of ceptyconsultant
+        uri: /clients?limit={limit}
+        category: Clients
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of clients to return
+            sample: 150
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Client found
+            description: Clients found in database
+          - code: 404
+            message: Client not found (partial content)
+            description: Client do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+      
+      GetClientsByName:
+        label: Show clients by name
+        description: List specific client's names of ceptyconsultants
+        uri: /clients?limit={limit}&sort_name={sort_name}
+        category: Clients
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of clients to return
+            sample: 150
+          sort_name:
+            type: string
+            optional: true
+            description: Sort clients by its name
+            sample: paul
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Client found
+            description: Clients found in database
+          - code: 404
+            message: Client not found (partial content)
+            description: Client do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      GetClientsByType:
+        label: Show clients by name
+        description: List specific client's names of ceptyconsultant
+        uri: /clients?limit={limit}&sort_type={sort_type}
+        category: Clients
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of clients to return
+            sample: 50
+          sort_type:
+            type: string
+            optional: true
+            description: Sort clients by its type content
+            sample: prenom
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Client found
+            description: Clients found in database
+          - code: 404
+            message: Client not found (partial content)
+            description: Client do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      GetClientsById:
+        label: Show clients by id
+        description: List specific client's id of ceptyconsultant
+        uri: /clients/{client_id}
+        category: Clients
+        request_parameters:
+          client_id:
+            type: string
+            optional: true
+            description: client id
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Client found
+            description: Clients found in database
+          - code: 404
+            message: Client not found (partial content)
+            description: Client do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      PostClient:
+        label: Create a client
+        method: POST
+        description: Create a new client of ceptyconsultant
+        uri: /client
+        category: Login
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        request_body:
+          type: Client
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 201
+            message: Client created 
+            description: Successful create new client
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+          - code: 400
+            message: Badrequest action ! 
+            description: Your request body same not correct
+          - code: 409
+            message: Client name already exist ! 
+            description: Client name already exist in our database
+
+      PutClient:
+        label: Update a client
+        method: PUT
+        description: Update a client of ceptyconsultants
+        uri: /clients/client_id
+        category: Clients
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Successful update client
+            description: Successful update this client
+          - code: 404
+            message: Client id not found
+            description: Client id do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      DeleteClient:
+        label: Delete a client
+        method: DELETE
+        description: Delete a client of ceptyconsultant
+        uri: /clients/client_id
+        category: Clients
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Client
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Successful delete client
+            description: Successful delete this client
+          - code: 404
+            message: Client id not found
+            description: Client id does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+      
+      GetAllContributions:
+        label: Show all contributions
+        description: List all contributions of ceptyconsultant
+        uri: /contributions?limit={limit}
+        category: Contributions
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of contributions to return
+            sample: 150
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Contributions found
+            description: Contributions found in database
+          - code: 404
+            message: Contribution not found
+            description: Contribution does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      GetContributionsByName:
+        label: Show all contributions by authors
+        description: List specific contribution's authors of ceptyconsultant
+        uri: /contributions?limit={limit}&sort_name={sort_name}
+        category: Contributions
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of contributions to return
+            sample: 150
+          sort_name:
+            type: string
+            optional: true
+            description: Sort contributions by its name
+            sample: ASC
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Contributions found
+            description: Contributions found in database
+          - code: 404
+            message: Contribution not found
+            description: Contribution does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+      
+      GetContributionsByValue:
+        label: Show all contributions by authors
+        description: List specific contribution's authors of ceptyconsultant
+        uri: /contributions?limit={limit}&sort_value={sort_value}
+        category: Contributions
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of contributions to return
+            sample: 10
+          sort_value:
+            type: string
+            optional: true
+            description: Sort contributions by its value
+            sample: mba
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Contributions found
+            description: Contributions found in database
+          - code: 404
+            message: Contribution not found
+            description: Contribution does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      GetContributionsByType:
+        label: Show all contributions by authors
+        description: List specific contribution's authors of ceptyconsultant
+        uri: /contributions?limit={limit}&sort_type={sort_type}
+        category: Contributions
+        request_parameters:
+          limit:
+            type: integer
+            optional: true
+            description: Limit range of contributions to return
+            sample: 5
+          sort_type:
+            type: string
+            optional: true
+            description: Sort contributions by its type
+            sample: ntealan
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Contributions found
+            description: Contributions found in database
+          - code: 404
+            message: Contribution not found
+            description: Contribution does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      GetContributionById:
+        label: Show a contribution by id
+        description: List specific contribution's id of ceptyconsultant
+        uri: /contributions/contrib_id
+        category: Contributions
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Contributions found
+            description: Contributions found in database
+          - code: 404
+            message: Contribution not found
+            description: Contribution does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      PostContribution:
+        label: Create a contribution
+        method: POST
+        description: Create a new contribution of ceptyconsultant
+        uri: /contributions
+        category: Contributions
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        request_body:
+          type: Contribution
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 201
+            message: Contribution created 
+            description: Successful create new contribution
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+          - code: 400
+            message: Badrequest action ! 
+            description: Your request body same not correct
+          - code: 409
+            message: Contribution name already exist ! 
+            description: Contribution name already exist in our database
+
+      PutContribution:
+        label: Update a contribution
+        method: PUT
+        description: Update a contribution of ceptyconsultant
+        uri: /contributions/contrib_id
+        category: Contributions
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Successful update contribution
+            description: Successful update this contributions
+          - code: 404
+            message: Contribution id not found
+            description: Contribution id do not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+
+      DeleteContribution:
+        label: Delete a contribution
+        method: DELETE
+        description: Delete a contribution of ceptyconsultant
+        uri: /contributions/contrib_id
+        category: Contributions
+        request_headers:
+          Accept:
+            type: mimeType
+            description: List of accepted MimeTypes
+            sample: application/json
+            generic: true
+          X-Access-Token:
+            type: string
+            description: Authentication token
+        response_body:
+          type: object
+          properties:
+            data:
+              type: Contribution
+            message:
+              type: string
+            status:
+              type: integer
+            time_server:
+              type: string
+            total:
+              type: integer                                    
+        response_codes:
+          - code: 200
+            message: Successful delete contribution
+            description: Successful delete this contribution
+          - code: 404
+            message: Contribution id not found
+            description: Contribution id does not exist
+          - code: 401
+            message: Unauthorized action ! 
+            description: Token expired or set token first
+                  
+    types:
+      mimeType:
+        category: Clients
+        description: A mime type
+        item:
+          type: string
+          sample: application/json
+        format:
+          pretty: type/sous-type
+
+      Client:
+        description: A global informations about a client
+        item:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Identified of client
+            nom:
+              type: string
+              description: Name of the client
+            prenom:
+              type: string
+              description: Subname of the client
+            fonction:
+              type: string
+              description: Function of the client
+            anciennete:
+              type: integer
+              description: anciennete of the client
+            mise_a_jour:
+              type: string
+              description: Last update applied to the client
+            conge:
+              type: integer
+              description: Some publication sources related to dictionary
+            actif:
+              type: boolean
+              description: Client actualy works 
+            actionnaire:
+              type: boolean
+              description: Client is an partner of the compagny ?
+            missions:
+              type: array
+              description: List of cities where client work
+          
+      Contribution:
+        description: A global informations about a contribution
+        item:
+          type: object
+          properties:
+            public_id:
+              type: integer
+              description: Contribution identifier
+            dico_id:
+              type: string
+              description: Id of contribution
+            user_id:
+              type: string
+              description: id of contribution
+            article_id:
+              type: string
+              description: Article id of the contribution
+            user_name:
+              type: string
+              description: Username of contribution
+            contrib_type:
+              type: string
+              description: Type of current contribution
+            contrib_data:
+              type: string
+              description: Data of the contribution
+            contrib_path:
+              type: string
+              description: Path of data contribution           
+            contrib_name:
+              type: string
+              description: name of the contribution
+            ntealan:
+              type: boolean
+              description: It is ntealan member ?
+            validate:
+              type: boolean
+              description: contribution is valided ? 
+            last_update:
+              type: string
+              description: Last update of contribution                
+
+      LoginPassword:
+        description: Object password for client
+        item:
+          type: object
+          properties:
+            password:
+              type: string
+              description: String representating password

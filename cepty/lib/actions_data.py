@@ -19,10 +19,13 @@ __version__ = "0.0.1"
 
 from .utils import *
 
+# ------------------------------------------------------------------
 
 # Get access to functions out of the module
 __all__ = ['update_data_by_id', 'delete_data_by_id',
             'create_data_by_id', 'read_all_data']
+            
+# ------------------------------------------------------------------
 
 
 def read_all_data(form):
@@ -93,22 +96,18 @@ def update_data_by_id(id, form, data, save):
             if save: dump_api_data(form, database)
             return crt_data, database
         if form == 'clients':
-            print('cccccccccccccccccccccccccccccccccccc')
             crt_data = get_client_data(database, id)
             
             for k, v in data.items():
                 if k in crt_data[id].keys(): crt_data[id][k] = v
                 if k == 'password': crt_data[id][k] = v
-            print('eeeeeeeeeeeeeeeeeeeeeeeeeeee')
             crt_data[id]['mise_a_jour'] = datetime.now().isoformat()
             ext_data = exclude_client_data(database, id)
             ext_data.append(crt_data)
             database = {v:w for x in ext_data for v, w in x.items()}
             if save: dump_api_data(form, database)
             return crt_data, database            
-    except Exception as e: 
-        print('ppppppppppppppppppppppppppp')
-        raise e
+    except Exception as e: raise e
 
 def delete_data_by_id(id, form, save=True):
     """ Delete api data by its id"""

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" >
   <head>
-    <title>{% block title %} Cepty consultant {% endblock %}</title> 
+    <title>{% block title %} Cepty consultants {% endblock %}</title> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}" />
     <meta name="description" content="" />
@@ -15,37 +15,59 @@
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link rel="stylesheet" href=" {{url_for('static', filename='css/styles.css')}}" crossorigin="anonymous"/>    
   </head>
-  <body>
+  <body style="overflow-x: hidden;">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mb-5" id="mainNav">
       <div class="container">
-          <a class="navbar-brand js-scroll-trigger" href="#page-top">Cepty consultant</a>
+          <a class="navbar-brand js-scroll-trigger" href="{{ url_for('contributions.index') }}">
+            Cepty consultants
+          </a>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" 
                   data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" 
                   aria-label="Toggle navigation">Menu<i class="fas fa-bars"></i></button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              {% if g.client %}
-                <li class="nav-item">
-                  <div class="media">
-                    <img class="d-flex align-self-end mr-3 rounded" src="..." alt="Generic placeholder image">
-                    <div class="media-body">{{ g.user['username'] }}</div>
-                  </div>
+              {% if session['client'] %}
+                
+                <li class="nav-item"> 
+                  {% if session['client_zone'] == True %}
+                    <a class="nav-link js-scroll-trigger" href="{{ url_for('clients.index') }}">
+                      <u class="mt-1 font-weight-bold text-lg-left text-uppercase">
+                        <i class="fas fa-users"></i> Clients</u>
+                    </a>
+                  {% else %}
+                    <a class="nav-link js-scroll-trigger" href="{{ url_for('clients.index') }}">
+                      <i class="fas fa-users"></i> Clients</a></li>
+                  {% endif %}
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url_for('authcepty.logout') }}">Logout</a>
+                  {% if session['contrib_zone'] == True %}
+                    <a class="nav-link js-scroll-trigger" href="{{ url_for('contributions.index') }}">
+                      <u class="mt-1 font-weight-bold text-lg-left text-uppercase">
+                        <i class="fas fa-cubes"></i> Contributions</u>
+                    </a>
+                  {% else %}
+                    <a class="nav-link js-scroll-trigger" href="{{ url_for('contributions.index') }}">
+                      <i class="fas fa-cubes"></i> Contributions</a>
+                  {% endif %}
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url_for('clients.index') }}">Clients</a></li>
+                  <a class="nav-link"> | &nbsp; <i class="fas fa-user"></i> <span class="text-primary"> 
+                    {{ session['client']['nom'] }} {{ session['client']['prenom'] }}</span> &nbsp;|
+                  </a>
+                </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url_for('contributions.index') }}">Contributions</a>
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('authcepty.logout') }}">
+                    <i class="fas fa-sign-out-alt"></i> Logout</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url_for('authcepty.login') }}">Login</a>
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('authcepty.login') }}">
+                    <i class="fas fa-sign-in-alt"></i> Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url_for('authcepty.register') }}">Register</a>
+                  <a class="nav-link js-scroll-trigger" href="{{ url_for('authcepty.register') }}">
+                    <i class="fas fa-user-plus"></i> Créer un compte</a>
                 </li>
               {% endif %}
             </ul>
@@ -54,39 +76,33 @@
     </nav>
     
     <!-- Masthead-->
-    
-    <header class="masthead">
-      {% if not g.client %}
+    {% if not session['client'] %}
+      <header class="masthead">
         <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Cepty Consultant</h1>
-                <h2 class="text-white-50 mx-auto mt-2 mb-5">
-                  Langues, Cultures et Technologies intelligentes au coeur de l'innovation numérique
-                </h2>
-                <a class="btn btn-primary js-scroll-trigger" id="start" href="{{ url_for('authcepty.login') }}">Commencer</a>
-            </div>
+          <div class="mx-auto text-center">
+              <h1 class="mx-auto my-0 text-uppercase">Cepty Consultant</h1>
+              <h2 class="text-white-50 mx-auto mt-2 mb-5">
+                Langues, Cultures et Technologies intelligentes au coeur de l'innovation numérique
+              </h2>
+              <a class="btn btn-primary js-scroll-trigger" id="start" href="{{ url_for('authcepty.login') }}">Commencer</a>
+          </div>
         </div>
-      {% endif %}
-    </header>
-
-    {% block content %} {% endblock %}
-
-    <!-- About
-
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="text-white mb-4">Built with Bootstrap 4</h2>
-                    <p class="text-white-50">Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-                </div>
-            </div>
-            <img class="img-fluid" src="{{url_for('static', filename='img/ipad.png')}}" alt="" />
+      </header>
+    {% endif %}
+    <div class="container-fluid">
+      <div class="row bg-secondary justify-content-md-arround">
+        <div class="col-md-2 col-sm-2 mt-5 mr-5">{% block header %} {% endblock %}</div>
+        <div class="mb-5"></div>
+        <div class="col-md-8 col-sm-8 mt-5 ml-0 mr-0" style="margin-top:180px;">
+          {% block content %} {% endblock %}
         </div>
-    </section>
-    -->
-      
-    <footer class="footer bg-black small text-center text-white-50 h-25 w-100">
-      <div class="container">Copyright © Cepty consultant 2020</div>
-    </footer>
-    
+        {% block modal_zone %} {% endblock %}
+      </div>
+        
+      <footer class="footer bg-black small text-center text-white-50 row align-items-end">
+        <div class="col-12 navbar-fixed-bottom">Copyright © Cepty consultants 2020</div>
+      </footer>
+    </div>  
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>

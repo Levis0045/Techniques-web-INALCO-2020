@@ -1,28 +1,250 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">New</a>
-  {% endif %}
+  <div class="ml-5 mt-5" style="margin-top: 50px; position:fixed">
+    {% if session['client'] %}
+      <h2 style="width: 280px;">{% block title %} Liste de clients {% endblock %}</h2>
+      <button class="badge badge-pill badge-primary inline-block" id="ActionCreateclient">
+        <i class="fas fa-user-plus"></i> <a class="action">Créer un client</a>
+      </button>
+
+      <form method="post" class="form mt-5 bg-white p-3"  style="border-radius: 10px; width: 280px">
+        <div class="form-group">
+          <label for="ExampleInput">Filtrer les clients </label>
+          <select multiple class="form-control" id="ExampleInput" name="sort_type">
+            <option>nom</option>
+            <option>prenom</option>
+            <option>fonction</option>
+            <option>anciennete</option>
+            <option>mise_a_jour</option>
+            <option>conge</option>
+            <option>actif</option>       
+            <option>actionnaire</option>       
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ExampleInput3">Recherche par le nom</label>
+          <input type="text" class="form-control" id="ExampleInput3" name="sort_name" placeholder="...">
+        </div>          
+        <div class="form-group">
+          <input type="submit" style="width:100px" value="Fouiller" class="p-3 btn btn-small btn-primary text-capitalize"/>
+          <a href="{{ url_for('clients.index') }}" style="width:140px" class="p-3 btn btn-small btn-secondary text-capitalize"> 
+            Réinitialiser...
+          </a>
+        </div>
+      </form>
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
+  <div class="container">
+    {% if clients|length == 0 %}
+      <div class="card h-100 w-100" style="height: 200px;"></div>
     {% endif %}
-  {% endfor %}
+    <table class="table table-bordered table-hover w-100 mt-5 bg-white">
+      <thead>
+        <tr class="table-primary">
+          <th>Identifiant</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Fonction</th>
+          <th>Anciennete</th>
+          <th>Mise à jour</th>
+          <th>Congé</th>
+          <th>Actif</th>
+          <th>Actionnaire</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for client in clients %}
+      {% if session['client']['nom'] == client['nom'] %}
+        <tr class="table-primary table-info">
+      {% else %}
+        <tr>
+      {% endif %}
+          <th scope="row">{{ client['id'] }}</th>
+          <td>{{ client['nom'] }}</td>
+          <td>{{ client['prenom'] }}</td>
+          <td>{{ client['fonction'] }}</td>
+          <td>{{ client['anciennete'] }}</td>
+          <td>{{ client['mise_a_jour'] }}</td>
+          <td>{{ client['conge'] }}</td>      
+          <td>{{ client['actif'] }}</td>
+          <td>{{ client['actionnaire'] }}</td>
+          <td class="align-self-center text-center" style="text-align: center;">
+            <div class="text-center"></div>
+              {% if session['client']['nom'] == client['nom'] or not client['actif'] %}
+                  <span type="button" class="text-primary ActionUpdateclient text-capitalize"
+                      data-nom="{{ client['nom'] }}" data-prenom="{{ client['prenom'] }}"
+                      data-fonction="{{ client['fonction'] }}" data-anciennete="{{ client['anciennete'] }}"
+                      data-miseajour="{{ client['mise_a_jour'] }}" data-conge="{{ client['conge'] }}"
+                      data-actif="{{ client['actif'] }}" data-actionnaire="{{ client['actionnaire'] }}"
+                      data-id="{{ client['id'] }}"
+                      ><i class="fas fa-user-edit"></i>
+                  </span>
+                  {% if session['client']['nom'] != client['nom'] %}
+                    <span type="button" class="text-danger ActionDeleteclient text-capitalize"
+                    data-id="{{ client['id'] }}" data-nom="{{ client['nom'] }}"
+                    ><i class="fas fa-trash-alt"></i></span>    
+                  {% endif %}            
+              {% else %}  
+                <span class="text-small text-danger"> - </span>
+              {% endif %}
+            </div>
+          </td>          
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+{% block modal_zone %}
+  <div class="modal fade col align-self-center" id="Updateclient" tabindex="-1" role="dialog" 
+    aria-labelledby="Updatecontribution" data-show="false">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Mise à jour de la client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form method="post" id="formupdate">
+        <div class="modal-body">          
+            <div class="form-group">
+                <label for="text-id" class="form-control-label">Id de la client</label>
+                <input type="text" class="form-control" id="text-id" name="id" 
+                      disabled/>
+            </div>
+            <div class="form-group">
+              <label for="text-nom" class="form-control-label">Nom du client:</label>
+              <input type="text" class="form-control" id="text-nom" name="nom" required/>
+            </div>
+            <div class="form-group">
+              <label for="text-prenom" class="form-control-label">Prénom du client:</label>
+              <input type="text" class="form-control" id="text-prenom" name="prenom" required/>
+            </div>
+            <div class="form-group">
+              <label for="text-fonction" class="form-control-label">Fonction du client:</label>
+              <input type="text" class="form-control" id="text-fonction" name="fonction" required/>
+            </div>           
+            <div class="form-group">
+              <label for="text-miseajour" class="form-control-label">
+                Dernière date de mise à jour du client:
+              </label>
+              <input type="datetime-local" class="form-control" id="text-miseajour" name="mise_a_jour" required/>
+            </div>   
+            <div class="form-group">
+              <label for="text-conge" class="form-control-label">Congé du client:</label>
+              <input type="number" class="form-control" id="text-conge" name="conge" required/>
+            </div>    
+            <div class="form-group">
+              <label for="text-anciennete" class="form-control-label">Anciennté du client:</label>
+              <input type="number" class="form-control" id="text-anciennete" name="anciennete" required/>
+            </div>                                                                          
+            <div class="form-group">
+                <input type="checkbox" class="form-check-input ml-2" id="text-actif" name="actif" >
+                <label for="text-actif" class="form-control-label ml-4">l'utilisateur est-il actif ? :</label>
+            </div>  
+            <div class="form-group">
+                <input type="checkbox" class="form-check-input ml-2" id="text-actionnaire" name="actionnaire" >
+                <label for="text-actionnaire" class="form-control-label ml-4">est-il un actionnaire de NTeALan ?</label>
+            </div>                     
+            {% if api_error %}
+              <div class="form-group">
+                  <div class="alert alert-danger" role="alert" id="alert-danger-login">
+                      <strong>Error from API: &nbsp;</strong>  {{ api_message }}.
+                  </div>
+              </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Mise à jour" class="btn btn-primary" id="updatesubmit"/>
+        </div>
+    </form>
+    </div>
+    </div>
+  </div>
+
+  <div class="modal fade col align-self-center" id="Deleteclient" tabindex="-1" role="dialog" 
+    aria-labelledby="Deletecontribution" data-show="false">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Suppression du client</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <form method="post" id="formdelete">
+        <div class="modal-body">
+            <div class="form-group">
+                <p>Voulez-vous vraiment supprimer ce client ? 
+                Cette opération n'est pas réversible.<br/></p>
+                <label for="text-username" class="form-control-label">Id du client</label>
+                <input class="form-control" id="public_id_delete" type="text" 
+                      disabled required/>
+            </div>
+            {% if api_error %}
+              <div class="form-group">
+                  <div class="alert alert-danger" role="alert" id="alert-danger-login">
+                      <strong>Error from API: &nbsp;</strong>  {{ api_message }}
+                  </div>
+              </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Supprimer" class="btn btn-danger"/>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $('.ActionUpdateclient').click(function(e){
+    var attribs = e.currentTarget.attributes
+    console.log(attribs);
+    var public_id = attribs[10]['nodeValue'];
+    var client_name = attribs[2]['nodeValue'];
+    var val_pb = "/clients/"+public_id+"/update";
+    $('#formupdate').attr("action", val_pb);
+    $('.modal-title').html("Mise à jour du client: <b>"+client_name+"</b>");
+    $('#text-id').attr("value", public_id);
+    $('#text-nom').attr("value", attribs[2]['nodeValue']);
+    $('#text-prenom').attr("value", attribs[3]['nodeValue']);
+    $('#text-fonction').attr("value", attribs[4]['nodeValue']);
+    $('#text-anciennete').attr("value", attribs[5]['nodeValue']);
+    $('#text-miseajour').attr("value", attribs[6]['nodeValue']);
+    $('#text-conge').attr("value", attribs[7]['nodeValue']);
+    $('#text-actif').attr("value", attribs[8]['nodeValue']);
+    $('#text-actionnaire').attr("value", attribs[9]['nodeValue']);
+    $('#Updateclient').modal('show');
+  });
+
+  $('#ActionCreateclient').click(function(){
+    $('#Updateclient').modal('show');
+    var val_pb = "/clients/create";
+    $('#formupdate').attr("action", val_pb);
+    $('.modal-title').html("Création d'un nouveau client");
+    $('#updatesubmit').html("Exécuter");
+    $('#text-id').attr("value", "public_id");
+  });
+
+  $('.ActionDeleteclient').click(function(e){
+    var attribs = e.currentTarget.attributes
+    var public_id = attribs[2]['nodeValue'];
+    var client_name = attribs[3]['nodeValue'];
+    var val_pb = "/clients/"+public_id+"/delete";
+    $('#formdelete').attr("action", val_pb);
+    $('.modal-title').html("Suppression du client: <b>"+client_name+"</b>");
+    $('#public_id_delete').attr("value", public_id);
+    $('#Deleteclient').modal('show');
+  });
+</script>
 {% endblock %}
