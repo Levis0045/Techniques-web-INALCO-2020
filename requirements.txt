@@ -1,7 +1,9 @@
 aniso8601==8.0.0
 certifi==2020.4.5.1
+cffi==1.14.0
 chardet==3.0.4
 Click==7.0
+cryptography==2.9.2
 dominate==2.5.1
 Flask==1.1.1
 Flask-Bootstrap==3.3.7.1
@@ -12,6 +14,8 @@ idna==2.9
 itsdangerous==1.1.0
 Jinja2==2.11.0
 MarkupSafe==1.1.1
+pycparser==2.20
+PyJWT==1.7.1
 python-dotenv==0.13.0
 pytz==2019.3
 requests==2.23.0
