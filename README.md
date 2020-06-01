@@ -11,11 +11,12 @@ Le projet est constitué de deux applications web utilisant la librairie Python 
 - le dossier **cepty/**: l'application API REST
 - le dossier **front/**: l'application Front-end
 - le fichier **tests.py**: pour les lancer les tests unitaires
+- le fichier **requirements**: les dépendances logicielles du projet
 - le fichier **start_app.py**: pour lancer l'application
 
 ## Installation
 
-Configurer votre environnement de développement avec **pipenv**. 
+Configurer votre environnement de développement avec **pipenv**. Se rendre dans le dossier principal et éxécuter les commandes: 
 
     pipenv --python 3.6
     pipenv install
@@ -27,7 +28,7 @@ Vous pouvez vérifier si les fonctionalités implémentées fonctionnent bien en
 
     python3 tests.py
 
-Seuls celles de la librairie de gestion des données fonctionnement actuellement. Les autres unitests seront implémentés plutard
+Seules celles de la librairie de gestion des données de l'API fonctionnement actuellement. Les autres unitests seront implémentés plutard.
 
 ## Utilisation
 
