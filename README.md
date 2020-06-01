@@ -2,16 +2,16 @@
 
 Correction de l'examen du cours Techniques web (Master 2 - TAL - 2020): Mise en place d'une API REST et d'un Front-end avec Python et Flask. 
 
-`NB:` Cette version est temporaire et peut encore être améliorée (surtout la partie UX et sécurité) 
+`NB:` cette version est temporaire et peut encore être améliorée (surtout la partie UX et sécurité) 
 
 ## Organisation interne 
 
 Le projet est constitué de deux applications web utilisant la librairie Python Flask, routées par un Middleware de bout en bout. 
 
-1- le dossier **cepty**: l'application API REST
-2- le dossier **front**: l'application Front-end
-3- le fichier **tests.py**: pour les lancer les tests unitaires
-4- le fichier **start_app.py**: pour lancer l'application
+- le dossier **cepty/**: l'application API REST
+- le dossier **front/**: l'application Front-end
+- le fichier **tests.py**: pour les lancer les tests unitaires
+- le fichier **start_app.py**: pour lancer l'application
 
 ## Installation
 
@@ -20,6 +20,14 @@ Configurer votre environnement de développement avec **pipenv**.
     pipenv --python 3.6
     pipenv install
     pipenv shell
+
+## Tests
+
+Vous pouvez vérifier si les fonctionalités implémentées fonctionnent bien en éxécutant les unitests. 
+
+    python3 tests.py
+
+Seuls celles de la librairie de gestion des données fonctionnement actuellement. Les autres unitests seront implémentés plutard
 
 ## Utilisation
 
