@@ -32,7 +32,7 @@ Seules celles de la librairie de gestion des données de l'API fonctionnement ac
 
 ## Utilisation
 
-Les deux applications fonctionnent sous un seul serveur partageant une URL. On le lance avec le fichier `start_app.py`. 
+Les deux applications fonctionnent sous un seul serveur partageant une URL. On les lancent avec le fichier `start_app.py`. 
 
     python3 start_app.py
 
