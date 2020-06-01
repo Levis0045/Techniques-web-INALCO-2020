@@ -1,28 +1,242 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">New</a>
+  {% if session['client'] %}
+  <div class="ml-5 mt-5 justify-content-start" style="margin-top: 50px; position:fixed">
+    <h1 style="width: 150px;">{% block title %} Liste de contributions {% endblock %}</h1>
+    <button class="badge badge-pill badge-primary inline-block" id="ActionCreatecontribution">
+      <i class="fas fa-plus"></i> <a class="action">Créer une contribution</a>
+    </button>
+
+    <form method="post" class="form mt-5 bg-white p-3" style="border-radius: 10px; width: 280px">
+      <div class="form-group">
+        <label for="ExampleInput">Filtrer les contributions </label>
+        <select multiple class="form-control" id="ExampleInput" name="sort_type">
+          <option>user_name</option>
+          <option>dico_id</option>
+          <option>contrib_type</option>
+          <option>contrib_data</option>
+          <option>contrib_name</option>
+          <option>ntealan</option>
+          <option>validate</option>       
+          <option>last_update</option>       
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ExampleInput2">Rechercher par l'auteur</label>
+        <input type="text" class="form-control" id="ExampleInput2" name="sort_name" placeholder="...">
+      </div>
+      <div class="form-group">
+        <label for="ExampleInput3">Recherche par la contribution</label>
+        <input type="text" class="form-control" id="ExampleInput3" name="sort_value" placeholder="...">
+      </div>          
+      <div class="form-group">
+        <input type="submit" style="width:100px" value="Fouiller" class="p-3 btn btn-small btn-primary text-center text-capitalize"/>
+        <a href="{{ url_for('contributions.index') }}" style="width:140px" class="p-3 btn btn-small btn-secondary text-capitalize"> 
+          Réinitialiser...
+        </a>
+      </div>
+    </form>
+  </div>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
+  <div class="container justify-content-end no-gutters ml-5">
+    <div class="card-columns w-100 mt-5" style="width: 100%;display: inline-block">
+    {% if contributions|length == 0 %}
+      <div class="card h-100 w-100" style="height: 200px;"></div>
     {% endif %}
-  {% endfor %}
+    {% for contrib in contributions %}
+      <div class="card w-100">
+        <div class="text-center">
+          <img class="card-img-top img-fluid" style="width:120px" src="https://ntealan.net/dictionaries/assets/img/logo.gif" alt="Card image cap">
+        </div>
+        <div class=" card-block">
+          <div class="ml-2 card-text">
+            <span class="inline-block">
+              <span class="card-title" style="font-size: 30px;">{{ contrib['contrib_name'] }}</span>
+              <span class="badge badge-pill badge-primary inline-block">{{ contrib['dico_id'] }}</span>
+              <span class="badge badge-pill badge-success inline-block">{{ contrib['contrib_type'] }}</span>
+            </span> 
+          </div>
+          <div class="ml-2 card-text">
+            <audio controls class="mb-2 text-center">
+              <source src="{{ contrib['contrib_path'] }}{{ contrib['contrib_data'] }}" type="audio/wav"/>
+            </audio>
+            <p style="top:-180px" class="card-text mb-2">
+              <i class="far fa-user"></i> Crée par   
+              <span class="text-primary">{{ contrib['user_name'] }}</span> 
+            </p>
+          </div>
+          <div class="card-footer"><i class="far fa-clock m-0"></i> {{ contrib['last_update'] }}</div>
+          {% if session['client']['nom'] == contrib['user_name'] %}
+            <div class="card-footer text-center">
+              <button type="button" class="p-2 btn btn-primary btn-sm ActionUpdatecontribution text-capitalize"
+                  data-publicid="{{ contrib['public_id'] }}" data-contribname="{{ contrib['contrib_name'] }}"
+                  data-contribpath="{{ contrib['contrib_path'] }}" data-contribdata="{{ contrib['contrib_data'] }}"
+                  data-contribtype="{{ contrib['contrib_type'] }}" data-dicoid="{{ contrib['dico_id'] }}"
+                  data-ntealan="{{ contrib['ntealan'] }}" data-validate="{{ contrib['validate'] }}"
+                  >Editer</button>
+              <button type="button" class="p-2 btn btn-danger btn-sm ActionDeletecontribution text-capitalize"
+                  data-publicid="{{ contrib['public_id'] }}" data-contribname="{{ contrib['contrib_name'] }}"
+                  >Supprimer</button>              
+              <!-- <a class="bg-success text-white p-1 mr-3" id="editer">Editer</a>
+              <a class="bg-danger text-white p-1" id="Supprimer">Supprimer</a> -->
+            </div>
+          {% endif %}
+          </div>
+      </div>
+      <!-- {% if not loop.last %}
+        <hr>
+      {% endif %} -->
+    {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block modal_zone %}
+  <div class="modal fade col align-self-center" id="Updatecontribution" tabindex="-1" role="dialog" 
+    aria-labelledby="Updatecontribution" data-show="false">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Mise à jour de la contribution</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form method="post" id="formupdate">
+        <div class="modal-body">          
+            <div class="form-group">
+                <label for="text-username" class="form-control-label">Id de la contribution</label>
+                <input type="text" class="form-control" id="text-publicid" name="public_id" 
+                      disabled/>
+            </div>
+            <div class="form-group">
+              <label for="text-contribtype" class="form-control-label">Type de la contribution:</label>
+              <select class="form-control" id="text-contribtype" name="contrib_type">
+                <option>sound</option>
+                <option>image</option>
+                <option>video</option>
+                <option>document</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="text-dicoid" class="form-control-label">Id du dictionnaire associé à la contribution:</label>
+                <select class="form-control" id="text-dicoid" name="dico_id">
+                  <option>yb_fr_3130</option>
+                  <option>bm_fr_11365</option>
+                  <option>gh_fr_2020</option>
+                  <option>dl_fr_2020</option>
+                </select>
+            </div>      
+            <div class="form-group">
+                <label for="text-username" class="form-control-label">Nom de la contribution (radical de l'article):</label>
+                <input type="text" class="form-control" id="text-contribname" name="contrib_name" required/>
+            </div>
+            <div class="form-group">
+                <label for="text-contribpath" class="form-control-label">Chemin de la contribution:</label>
+                <input class="form-control" id="text-contribpath" type="text" name="contrib_path" required/>
+            </div>
+            <div class="form-group">
+                <label for="text-contribdata" class="form-control-label">Nom du fichier audio de la contribution:</label>
+                <input class="form-control" id="text-contribdata" type="text" name="contrib_data" required/>
+            </div>    
+            <div class="form-group">
+                <input type="checkbox" class="form-check-input ml-2" id="text-ntealan" name="ntealan" >
+                <label for="text-ntealan" class="form-control-label ml-4">Utilisateur NTeALan:</label>
+            </div>          
+            {% if api_error %}
+              <div class="form-group">
+                  <div class="alert alert-danger" role="alert" id="alert-danger-login">
+                      <strong>Error from API: &nbsp;</strong>  {{ api_message }}.
+                  </div>
+              </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Mise à jour" class="btn btn-primary" id="updatesubmit"/>
+        </div>
+    </form>
+    </div>
+    </div>
+  </div>
+
+  <div class="modal fade col align-self-center" id="Deletecontribution" tabindex="-1" role="dialog" 
+    aria-labelledby="Deletecontribution" data-show="false">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Suppression de la contribution</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <form method="post" id="formdelete">
+        <div class="modal-body">
+            <div class="form-group">
+                <p>Voulez-vous vraiment supprimer cette contribution ? 
+                Cette opération n'est pas réversible.<br/></p>
+                <label for="text-username" class="form-control-label">Id de la contribution</label>
+                <input class="form-control" id="public_id_delete" type="text" 
+                      disabled required/>
+            </div>
+            {% if api_error %}
+              <div class="form-group">
+                  <div class="alert alert-danger" role="alert" id="alert-danger-login">
+                      <strong>Error from API: &nbsp;</strong>  {{ api_message }}
+                  </div>
+              </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Supprimer" class="btn btn-danger"/>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  $('.ActionUpdatecontribution').click(function(e){
+    var attribs = e.currentTarget.attributes
+    var public_id = attribs[2]['nodeValue'];
+    var contrib_name = attribs[3]['nodeValue'];
+    var val_pb = "/contributions/"+public_id+"/update";
+    $('#formupdate').attr("action", val_pb);
+    $('.modal-title').html("Mise à jour de la contribution: <b>"+contrib_name+"</b>");
+    $('#text-publicid').attr("value", public_id);
+    $('#text-contribname').attr("value", attribs[3]['nodeValue']);
+    $('#text-contribdata').attr("value", attribs[5]['nodeValue']);
+    $('#text-ntealan').attr("value", attribs[8]['nodeValue']);
+    $('#text-dicoid').attr("value", attribs[7]['nodeValue']);
+    $('#text-contribpath').attr("value", attribs[4]['nodeValue']);
+    $('#text-contribtype').attr("value", attribs[6]['nodeValue']);
+    $('#text-validate').attr("value", attribs[9]['nodeValue']);
+    $('#Updatecontribution').modal('show');
+  });
+
+  $('#ActionCreatecontribution').click(function(){
+    $('#Updatecontribution').modal('show');
+    var val_pb = "/contributions";
+    $('#formupdate').attr("action", val_pb);
+    $('.modal-title').html("Création d'une nouvelle contribution");
+    $('#updatesubmit').html("Exécuter");
+    $('#text-publicid').attr("value", "public_id");
+  });
+
+  $('.ActionDeletecontribution').click(function(e){
+    var public_id = e.currentTarget.attributes[2]['nodeValue'];
+    var contrib_name = e.currentTarget.attributes[3]['nodeValue'];
+    var val_pb = "/contributions/"+public_id+"/delete";
+    $('#formdelete').attr("action", val_pb);
+    $('.modal-title').html("Suppression de la contribution: <b>"+contrib_name+"</b>");
+    $('#public_id_delete').attr("value", public_id);
+    $('#Deletecontribution').modal('show');
+  });
+</script>
 {% endblock %}

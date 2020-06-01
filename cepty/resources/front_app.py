@@ -32,7 +32,7 @@ class DocRestApiResource(Resource):
 
     def get(self): 
         import codecs
-        url = parent / 'doc' / 'home-v0.1.html'
+        url = parent / 'doc' / 'home-v0.2.html'
         content = codecs.open(str(url), "r", "utf-8").read()
         resp = Response(content, status=200, headers={},
                     content_type='text/html; charset=utf-8')

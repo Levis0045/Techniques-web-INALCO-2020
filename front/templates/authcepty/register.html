@@ -1,15 +1,84 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
+{% block content %}
+<div class="container align-items-center col-12">
+  <div class="modal fade col" id="myModal" tabindex="-1" role="dialog" 
+          aria-labelledby="exampleModalLabel" data-show="true">
+    <div class="modal-dialog align-self-center" role="document">
+        <div class="modal-content">
+        <div class="modal-header bg-secondary">
+            <h5 class="modal-title">Création d'un nouveau client</h5>
+            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form method="post" action="{{ url_for('authcepty.register') }}">
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="text-nom2" class="form-control-label">Nom du client (utilisé comme pseudo):</label>
+                  <input type="text" class="form-control" id="text-nom2" name="nom" 
+                            autocomplete="current-nom" required/>
+                </div>
+                <div class="form-group">
+                  <label for="text-prenom" class="form-control-label">Prenom du client:</label>
+                  <input type="text" class="form-control" id="text-nom" name="prenom" 
+                            autocomplete="current-subname" required/>
+                </div>
+                <div class="form-group">
+                  <label for="text-password" class="form-control-label">Mot de passe:</label>
+                  <input class="form-control" id="text-password" type="password" name="password" 
+                          autocomplete="current-password" required/>
+                </div>
+                <div class="form-group">
+                  <label for="text-fonction2" class="form-control-label">Fonction du client:</label>
+                  <input type="text" class="form-control" id="text-fonction2" name="fonction" 
+                            autocomplete="current-fonction" required/>
+                </div>
+                <div class="form-group">
+                  <label for="text-fonction" class="form-control-label">Date de mise à jour:</label>
+                  <input type="datetime-local" class="form-control" id="text-fonction" name="mise_a_jour" 
+                            autocomplete="current-fonction" required/>
+                </div>  
+                <div class="form-group">
+                  <label for="text-conge" class="form-control-label">Nombre de jour de congé client:</label>
+                  <input type="number" value="20" class="form-control" id="text-conge" name="conge" 
+                            autocomplete="current-conge" required/>
+                </div>
+                <div class="form-group">
+                  <label for="text-missions" class="form-control-label">Zone où le client a exercé:</label>
+                  <select multiple class="form-control" id="missions" name="missions">
+                    <option>Yaoundé</option>
+                    <option>Londres</option>
+                    <option>Douala</option>
+                    <option>Bruxelle</option>
+                    <option>Paris</option>
+                    <option>Abidjan</option>
+                    <option>New York</option>       
+                    <option>Tokyo</option>       
+                  </select>
+                </div>                  
+                {% if api_error %}
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert" id="alert-danger-login">
+                            <strong>Error from API: &nbsp;</strong>  {{ api_message }}.
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Exécuter" class="btn btn-primary">
+            </div>
+        </form>
+        </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
-{% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Register">
-  </form>
+{% block scripts %}
+<script>
+    $(function() {
+        $('#myModal').modal('show');
+    });
+</script>
 {% endblock %}

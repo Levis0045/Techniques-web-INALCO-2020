@@ -34,13 +34,15 @@ def create_cepty_app():
     Bootstrap(ceptyDataFront)
     
     # existing code omitted
-
     from .resources import auth
     from .resources import contributions
+    from .resources import clients
     
     ceptyDataFront.register_blueprint(auth.authcepty)
     ceptyDataFront.register_blueprint(contributions.contrib)
-    ceptyDataFront.add_url_rule('/', endpoint='index')
+    ceptyDataFront.register_blueprint(clients.client)
+
+    ceptyDataFront.add_url_rule('/', endpoint='contributions.index')
 
     return ceptyDataFront
 
