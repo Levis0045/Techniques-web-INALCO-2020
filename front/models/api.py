@@ -16,10 +16,11 @@ __version__ = "0.1"
 
 import requests
 import json
+from os import environ
 
 # -----------------------------------------------------------------------
 
-HOST_API = "http://127.0.0.1:5000/api/v0.2"
+HOST_API = "http://0.0.0.0:{}/api/v0.2".format(environ['PORT'])
 URL_LOGIN = HOST_API+"/login"
 URL_CLIENT_GET = HOST_API+"/clients"
 URL_CLIENT_POST = HOST_API+"/clients/create"
