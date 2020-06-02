@@ -18,7 +18,6 @@ __version__ = "0.1"
 
 from flask import Flask
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
-from werkzeug.serving import run_simple
 
 from front.app import ceptyDataFront as frontend
 from cepty.api import ceptyDataApi as backend
