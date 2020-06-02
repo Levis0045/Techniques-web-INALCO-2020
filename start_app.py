@@ -34,5 +34,6 @@ cepty_app.wsgi_app = application
 # ------------------------------------------------------------------
 
 if __name__ == '__main__':
-    cepty_app.run(host='127.0.0.1', port=5000, use_evalex=True,
+    from os import environ
+    cepty_app.run(host='127.0.0.1', port=environ['PORT'], use_evalex=True,
                   use_reloader=True, use_debugger=True)
